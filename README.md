@@ -40,20 +40,24 @@ aux obstacles (murs et trafic) dans 7 directions.
 Ces distances sont les **entrées du réseau de neurones**.
 
 ### 2. Réseau de neurones (DQN)
-Entrée : 7 capteurs
+Entrée : 10 valeurs (7 capteurs + voie actuelle + position + voie cible)
+↓
+Couche cachée : 256 neurones (ReLU)
+↓
+Couche cachée : 256 neurones (ReLU)
 ↓
 Couche cachée : 128 neurones (ReLU)
 ↓
-Couche cachée : 128 neurones (ReLU)
-↓
-Sortie : 4 actions (gauche, droite, avancer, gauche doux)
+Sortie : 3 actions (voie gauche, voie milieu, voie droite)
 
 ### 3. Apprentissage par renforcement
 | Situation | Récompense |
 |-----------|------------|
-| Avancer sans obstacle | +1 |
-| Obstacle très proche | -5 |
-| Crash | -100 |
+| Voie libre devant | +8 |
+| Bien centré dans la voie | +4 |
+| Obstacle très proche devant | -20 |
+| Changement de voie inutile | -8 |
+| Crash | -500 |
 
 L'agent mémorise ses expériences dans un **replay buffer**
 et apprend par **rétropropagation** toutes les N étapes.
@@ -67,8 +71,8 @@ et apprend par **rétropropagation** toutes les N étapes.
 ## Installation
 
 ```bash
-git clone https://github.com/TON_USERNAME/voiture_autonome
-cd voiture_autonome
+git clone https://github.com/chaimae64/voiture-autonome-dqn.git
+cd voiture-autonome-dqn
 pip install -r requirements.txt
 ```
 
@@ -97,9 +101,10 @@ python simulation.py
 
 | Épisodes | Meilleur score |
 |----------|---------------|
-| 10       | ~2451         |
-| 100      | ~2884         |
-| 500      | ~5000+        |
+| 10       | ~2526         |
+| 500      | ~7000         |
+| 1000     | ~10000        |
+| 2000     | ~10500        |
 
 La courbe rouge montre la moyenne mobile sur 20 épisodes —
 on voit clairement l'apprentissage progressif de l'agent.
