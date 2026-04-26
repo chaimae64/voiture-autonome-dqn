@@ -17,6 +17,8 @@ La voiture apprend seule à éviter les obstacles grâce au
 ---
 
 ## Architecture
+
+```
 voiture_autonome/
 ├── simulation.py      # Environnement pygame (route, voiture, capteurs)
 ├── dqn.py             # Réseau de neurones + agent DQN
@@ -26,6 +28,7 @@ voiture_autonome/
 ├── trafic.py          # Voitures de trafic
 ├── modele.pth         # Cerveau sauvegardé après entraînement
 └── courbe_apprentissage.png
+```
 
 ---
 
